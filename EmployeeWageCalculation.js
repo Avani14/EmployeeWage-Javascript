@@ -78,34 +78,64 @@ while (totalEmployeeHours <= MAX_HOURS_IN_MONTH && totalWorkingDays < NUM_OF_WOR
     totalEmployeeHours += employeeHours;
     employeeDailyWageArray.push(calculateDailyWage(employeeHours));
 }
-
-//UC - 7A - Calculating Total Employee Wage Using ForEach
 employeeDailyWageArray.forEach(totalWage);
 console.log("\nTotal Working Days = " + totalWorkingDays + "\nTotal Working Hours = " + totalEmployeeHours + "\nTotal Employee Wage = " + totalEmployeeWage);
 
-//Calculating Total Employee Wage Using Reduce
 console.log("Employee Wage With Reduce : " + employeeDailyWageArray.reduce(totalWageUsingReduce, 0));
 
-//UC - 7B - Print day along with daily wage
 let mapDayWithWageArray = employeeDailyWageArray.map(mapDayWithDailyWage);
 console.log("Daily Wage Map : ");
 console.log(mapDayWithWageArray);
 
-//UC - 7C - Show days when full time Wage of 160 is earned
 let fullDayWageArray = mapDayWithWageArray.filter(fullTimeWage);
 console.log("Daily Wage Filter When Full Time Wage Earned : ");
 console.log(fullDayWageArray);
 
-//UC - 7D: Find first occurence when full time wage was eared using find function
 console.log("First Full Time Wage was Earned on Day : " + mapDayWithWageArray.find(findFullTimeWage));
 
-//UC - 7E: Check if every element of full time wage is truely holding full time wage
 console.log("Check All Element Have Full Time Wage: " + fullDayWageArray.every(isAllFullTimeWage));
 
-//UC - 7F - Check if ther eis any Part Time Wages
 console.log("Check If Any Part Time Wage: " + mapDayWithWageArray.some(isAnyPartTimeWage));
 
-//UC - 7G - Find Number of days the Employee Worked
+function invalidEntry(message){
+    this.message = message
+}
+invalidEntry.prototype = new Error;
+
+//Check if the emp gender if M or F
+function checkOnEmpId(emp_gender){
+    const regex = new RegExp("^(M|F)$")
+    try {
+        if(regex.test(emp_gender)){
+            console.log("This is valid");
+        }
+        else{
+            throw new invalidEntry()
+        }
+    } catch (error) {
+        if(error instanceof invalidEntry){
+            console.log("This is error");
+        }
+    }
+}
+
+//Check if the emp id is non zero
+function checkOnEmpId(emp_id){
+    const regex = new RegExp("[0-9]")
+    try {
+        if(regex.test(emp_id)){
+            console.log("This is valid");
+        }
+        else{
+            throw new invalidEntry()
+        }
+    } catch (error) {
+        if(error instanceof invalidEntry){
+            console.log("This is error");
+        }
+    }
+}
+
 function totalDaysWorked(numberOfDays, dailyWage){
     if(dailyWage > 0)
         return numberOfDays + 1;
